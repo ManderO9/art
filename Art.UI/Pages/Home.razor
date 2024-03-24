@@ -1,7 +1,29 @@
 ﻿@page "/"
+@namespace Art.UI
+@inject Settings mSettings
+@inject IApiManager mApiManager
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-<h2>testing if we can change stuff and add to it</h2>
-Welcome to your new app.
+@if(mImages is not null)
+{
+    @foreach(var image in mImages)
+    {
+        <div class="mb-4 pb-2 border-bottom border-1 border-secondary">
+            <img class="vw-100 mb-2"
+                 src="@mSettings.GetImageUrl(image.FileName)"
+                 @ondblclick="()=>LikeImage(image)" />
+
+            @if(image.IsLiked)
+            {
+                <img class="ms-2" role="button" @onclick="()=>LikeImage(image)" src="./Assets/heart-filled.svg" />
+            }
+            else
+            {
+                <img class="ms-2" role="button" @onclick="()=>LikeImage(image)" src="./Assets/heart.svg" />
+            }
+            <img class="ms-2" role="button" src="./Assets/download.svg" @onclick="()=>DownloadImage(image)" />
+            <img class="ms-1" role="button" src="./Assets/send.svg" @onclick="()=>ShareImage(image)" />
+        </div>
+    }
+}
