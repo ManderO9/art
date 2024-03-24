@@ -17,5 +17,8 @@ builder.Services.AddSingleton(
     });
 
 builder.Services.AddScoped<IApiManager, BogusApiManager>();
+builder.Services.AddTransient<ILocalStorage, LocalStorage>();
+builder.Services.AddTransient<ILikeService, LikeService>();
+builder.Services.AddTransient<IClipboardService, ClipboardService>();
 
 await builder.Build().RunAsync();

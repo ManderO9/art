@@ -2,28 +2,41 @@
 @namespace Art.UI
 @inject Settings mSettings
 @inject IApiManager mApiManager
+@inject ILocalStorage mLocalStorage
+@inject ILikeService mLikeService
+@inject NavigationManager mNavigationManager
+@inject IClipboardService mClipboardService
 
 <PageTitle>Home</PageTitle>
 
-@if(mImages is not null)
-{
-    @foreach(var image in mImages)
+<div class="m-auto" style="max-width:600px;">
+    @if(mImages is not null)
     {
-        <div class="mb-4 pb-2 border-bottom border-1 border-secondary">
-            <img class="vw-100 mb-2"
-                 src="@mSettings.GetImageUrl(image.FileName)"
-                 @ondblclick="()=>LikeImage(image)" />
+        @foreach(var image in mImages)
+        {
+            <div class="mb-4 pb-2 border-bottom border-1 border-secondary">
+                <img class="vw-100 mb-2"
+                     style="max-width:600px;"
+                     src="@mSettings.GetImageUrl(image.FileName)"
+                     @ondblclick="()=>LikeImage(image)" />
 
-            @if(image.IsLiked)
-            {
-                <img class="ms-2" role="button" @onclick="()=>LikeImage(image)" src="./Assets/heart-filled.svg" />
-            }
-            else
-            {
-                <img class="ms-2" role="button" @onclick="()=>LikeImage(image)" src="./Assets/heart.svg" />
-            }
-            <img class="ms-2" role="button" src="./Assets/download.svg" @onclick="()=>DownloadImage(image)" />
-            <img class="ms-1" role="button" src="./Assets/send.svg" @onclick="()=>ShareImage(image)" />
-        </div>
+                @if(image.IsLiked)
+                {
+                    <img class="ms-2" role="button" @onclick="()=>LikeImage(image)" src="./Assets/Images/heart-filled.svg" />
+                }
+                else
+                {
+                    <img class="ms-2" role="button" @onclick="()=>LikeImage(image)" src="./Assets/Images/heart.svg" />
+                }
+                <a href="@mSettings.GetImageUrl(image.FileName)" download>
+                    <img class="ms-2" role="button" src="./Assets/Images/download.svg" />
+                </a> 
+                <img class="ms-1" role="button" src="./Assets/Images/send.svg" @onclick="()=>ShareImage(image)" />
+                @if(image.IsShared)
+                {
+                    <span class="text-light ms-2">Copied to clipboard</span>
+                }
+            </div>
+        }
     }
-}
+</div>
