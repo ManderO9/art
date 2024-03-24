@@ -1,8 +1,7 @@
-﻿@page "/"
+﻿@attribute [Route(PageRoutes.Home)]
 @namespace Art.UI
 @inject Settings mSettings
-@inject IApiManager mApiManager
-@inject ILocalStorage mLocalStorage
+@inject IImagesService mImageService
 @inject ILikeService mLikeService
 @inject NavigationManager mNavigationManager
 @inject IClipboardService mClipboardService

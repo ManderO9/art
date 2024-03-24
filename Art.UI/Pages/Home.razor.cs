@@ -13,7 +13,7 @@ public partial class Home
     protected override async Task OnInitializedAsync()
     {
         // Get list of recommended images
-        mImages = await mApiManager.GetRecommendedImages();
+        mImages = await mImageService.GetRecommendedImagesAsync();
 
         // Get the list of liked images
         var likedImages = await mLikeService.GetLikedImagesAsync();
@@ -48,7 +48,7 @@ public partial class Home
     private async Task ShareImage(Image image)
     {
         // TODO: not implemented completely
-        await mClipboardService.Copy(mNavigationManager.BaseUri + $"Images/{image.Id}");
+        await mClipboardService.Copy(mNavigationManager.BaseUri + PageRoutes.ImageById(image.Id)[1..]);
         image.IsShared = true;
     }
 

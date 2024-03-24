@@ -1,0 +1,18 @@
+﻿@attribute [Route(PageRoutes.Gallery)]
+@namespace Art.UI
+@inject Settings mSettings
+@inject IImagesService mImageService
+
+<PageTitle>Gallery</PageTitle>
+
+<div class="m-auto" style="max-width:600px;">
+    @if(mImages is not null)
+        @foreach(var image in mImages)
+        {
+            <a href="@PageRoutes.ImageById(image.Id)" class="m-0 p-0">
+                <img class="m-0 p-0 border border-1 border-dark"
+                     style="width:33.33vw; height:33.33vw; max-width:200px;max-height:200px; object-fit:cover;"
+                     src="@mSettings.GetImageUrl(image.FileName)" />
+            </a>
+        }
+</div>
