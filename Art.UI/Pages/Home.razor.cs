@@ -1,3 +1,5 @@
+using Microsoft.JSInterop;
+
 namespace Art.UI;
 
 public partial class Home
@@ -5,7 +7,7 @@ public partial class Home
     #region Private Members
 
     private List<Image>? mImages;
-    
+
     #endregion
 
     #region On initialized
@@ -34,7 +36,7 @@ public partial class Home
     {
         // Update the liked flag for the image
         image.IsLiked = !image.IsLiked;
-        
+
         // If it was liked
         if(image.IsLiked)
             // Save the like
@@ -54,4 +56,14 @@ public partial class Home
 
     #endregion
 
+
+    [JSInvokable]
+    public static async Task AddToHistoryAsync(string id)
+    {
+        // Get history service
+        var historyService = DI.ServiceProvider.GetRequiredService<IHistoryService>();
+
+        // Add the passed in image the the history
+        await historyService.AddImageToHistoryAsync(Guid.Parse(id));
+    }
 }

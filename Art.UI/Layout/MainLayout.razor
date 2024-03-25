@@ -1,11 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
+<div class="bg-dark min-vh-100 pb-4">
+    @Body
+</div>
+
 <nav class="navbar fixed-bottom navbar-dark bg-dark justify-content-sm-around px-5">
     <NavLink href="@PageRoutes.Home">Home</NavLink>
     <NavLink href="@PageRoutes.Gallery">Gallery</NavLink>
-    <NavLink href="@PageRoutes.Likes"><img role="button" src="./Assets/Images/heart.svg" /></NavLink>
+    <NavLink href="@PageRoutes.Likes"><img src="./Assets/Images/heart.svg" /></NavLink>
     <NavLink href="@PageRoutes.History">history</NavLink>
 </nav>
-<div class="bg-dark min-vh-100 pb-5">
-    @Body
-</div>
