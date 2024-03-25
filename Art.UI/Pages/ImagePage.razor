@@ -1,0 +1,41 @@
+﻿@attribute [Route(PageRoutes.Image)]
+@namespace Art.UI
+@inject Settings mSettings
+@inject IImagesService mImageService
+@inject ILikeService mLikeService
+@inject NavigationManager mNavigationManager
+@inject IClipboardService mClipboardService
+
+<PageTitle>Image</PageTitle>
+
+<div class="m-auto pb-5" style="max-width:600px;">
+
+    @if(mImage is not null)
+    {
+        <div class="mb-3 pb-2 bg-dark border-bottom border-secondary">
+            <div class="p-2"><img src="/Assets/Images/left-arrow.svg" onclick="history.back();" /></div>
+            <img class="displayed-image vw-100 mb-2"
+                 data-id="@mImage.Id"
+                 style="max-width:600px; min-height:500px;"
+                 src="@mSettings.GetImageUrl(mImage.FileName)"
+                 @ondblclick="()=>LikeImage(mImage)" />
+
+            @if(mImage.IsLiked)
+            {
+                <img class="ms-2" role="button" @onclick="()=>LikeImage(mImage)" src="./Assets/Images/heart-filled.svg" />
+            }
+            else
+            {
+                <img class="ms-2" role="button" @onclick="()=>LikeImage(mImage)" src="./Assets/Images/heart.svg" />
+            }
+            <a href="@mSettings.GetImageUrl(mImage.FileName)" download>
+                <img class="ms-2" role="button" src="./Assets/Images/download.svg" />
+            </a>
+            <img class="ms-1" role="button" src="./Assets/Images/send.svg" @onclick="()=>ShareImage(mImage)" />
+            @if(mImage.IsShared)
+            {
+                <span class="text-light ms-2">Copied to clipboard</span>
+            }
+        </div>
+    }
+</div>

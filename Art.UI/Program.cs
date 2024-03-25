@@ -29,9 +29,6 @@ DI.Init(app.Services);
 
 await app.RunAsync();
 
-// TODO: add time on top of pictures, maybe that will look good
 // TODO: add image page where you can see details about an image
-// TODO: add history page where you will see all the images that you saw in order
-// TODO: add something that will add images to the history automatically
 
 

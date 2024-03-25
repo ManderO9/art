@@ -1,8 +1,16 @@
-﻿namespace Art.UI;
+﻿using System.Collections.Generic;
+
+namespace Art.UI;
 
 public class BogusImagesService : IImagesService
 {
-    public Task<List<Image>> GetRecommendedImagesAsync()
+    private readonly IHistoryService mHistoryService;
+
+    public BogusImagesService(IHistoryService historyService)
+    {
+        mHistoryService = historyService;
+    }
+    public async Task<List<Image>> GetRecommendedImagesAsync()
     {
         var list = new List<Image>()
         {
@@ -28,7 +36,11 @@ public class BogusImagesService : IImagesService
             new(){ FileName = "1711294016761.jpeg", Id = Guid.NewGuid(), CreateAt = DateTimeOffset.UtcNow},
         };
 
-        return Task.FromResult(list);
+        var history = await mHistoryService.GetHistoryAsync();
+
+        // Remove anything that is in history
+        list = list.Where(x => !history.Any(y => y.ImageId == x.Id)).ToList();
+        return list;
     }
 
     public async Task<List<Image>> GetAllImagesAsync()
@@ -42,5 +54,24 @@ public class BogusImagesService : IImagesService
         var list = await GetRecommendedImagesAsync();
         return list.OrderBy(x => x.CreateAt).ToList();
     }
+
+    public async Task<List<Image>> GetImagesInHistoryAsync()
+    {
+        var history = await mHistoryService.GetHistoryAsync();
+        var list = await GetRecommendedImagesAsync();
+        //list = list.Join(history, i => i.Id, h => h.ImageId, (i, h) => new { image = i, history = h })
+        //    .OrderBy(x => x.history.AddedAt).Select(x => x.image).ToList();
+
+        return list;
+    }
+
+    public async Task<Image> GetImageByIdAsync(Guid id)
+    {
+        await Task.Delay(1);
+
+        return new Image() { FileName = "1711294016761.jpeg", Id = id, CreateAt = DateTimeOffset.UtcNow };
+    }
+
+
 
 }

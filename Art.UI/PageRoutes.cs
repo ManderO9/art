@@ -1,5 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
+﻿
 namespace Art.UI;
 
 public class PageRoutes
