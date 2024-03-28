@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Art.UI;
+﻿namespace Art.UI;
 
 public class BogusImagesService : IImagesService
 {
@@ -73,5 +71,9 @@ public class BogusImagesService : IImagesService
     }
 
 
+    public Task UploadImagesAsync(List<Image> images)
+    {
+        return Task.CompletedTask;
+    }
 
 }
