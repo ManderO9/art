@@ -49,8 +49,10 @@ public partial class Home
 
     private async Task ShareImage(Image image)
     {
-        // TODO: not implemented completely
+        // Copy image url to clipboard
         await mClipboardService.Copy(mNavigationManager.BaseUri + PageRoutes.ImageById(image.Id)[1..]);
+        
+        // Set is shared flag to true
         image.IsShared = true;
     }
 
