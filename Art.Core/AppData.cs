@@ -1,4 +1,4 @@
-﻿namespace Art.UI;
+﻿namespace Art.Core;
 
 public class AppData
 {

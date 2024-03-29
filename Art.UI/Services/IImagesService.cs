@@ -8,4 +8,5 @@ public interface IImagesService
     Task<List<Image>> GetImagesInHistoryAsync();
     Task<Image> GetImageByIdAsync(Guid id);
     Task UploadImagesAsync(List<Image> images);
+    string GetImageUrl(Image image);
 }

@@ -1,6 +1,5 @@
 ﻿@attribute [Route(PageRoutes.Image)]
 @namespace Art.UI
-@inject Settings mSettings
 @inject IImagesService mImageService
 @inject ILikeService mLikeService
 @inject NavigationManager mNavigationManager
@@ -17,7 +16,7 @@
             <img class="displayed-image vw-100 mb-2"
                  data-id="@mImage.Id"
                  style="max-width:600px; min-height:500px;"
-                 src="@mSettings.GetImageUrl(mImage.FileName)"
+                 src="@mImageService.GetImageUrl(mImage)"
                  @ondblclick="()=>LikeImage(mImage)" />
 
             @if(mImage.IsLiked)
@@ -28,7 +27,7 @@
             {
                 <img class="ms-2" role="button" @onclick="()=>LikeImage(mImage)" src="./Assets/Images/heart.svg" />
             }
-            <a href="@mSettings.GetImageUrl(mImage.FileName)" download>
+            <a href="@mImageService.GetImageUrl(mImage)" download>
                 <img class="ms-2" role="button" src="./Assets/Images/download.svg" />
             </a>
             <img class="ms-1" role="button" src="./Assets/Images/send.svg" @onclick="()=>ShareImage(mImage)" />

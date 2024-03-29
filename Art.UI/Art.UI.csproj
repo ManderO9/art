@@ -20,4 +20,8 @@
     <None Include="wwwroot\Assets\Js\LocalStorageAccessor.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Art.Core\Art.Core.csproj" />
+  </ItemGroup>
+
 </Project>

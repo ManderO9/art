@@ -193,20 +193,19 @@ public partial class AddImages
 
 
 
-            foreach(var image in images)
-                Console.WriteLine(
-                $"""
-                Uploaded file:
-                    id: {image.Id}
-                    filename: {image.FileName}
-                    file size: {image.FileContent!.Length}
-                    created at: {image.CreateAt}
-                """);
+            //foreach(var image in images)
+            //    Console.WriteLine(
+            //    $"""
+            //    Uploaded file:
+            //        id: {image.Id}
+            //        filename: {image.FileName}
+            //        file size: {image.FileContent!.Length}
+            //        created at: {image.CreateAt}
+            //    """);
 
-            var data = await mDataAccessService.ReadFileAsync("data.json");
-            var appData = JsonSerializer.Deserialize<AppData>(data)!;
-            appData.Images.AddRange(images);
-            Console.WriteLine($"Data Saved: {JsonSerializer.Serialize(appData)}");
+            //var appData = await mDataAccessService.ReadFileAsync<AppData>("data.json");
+            //appData.Images.AddRange(images);
+            //Console.WriteLine($"Data Saved: {JsonSerializer.Serialize(appData)}");
 
 
         }

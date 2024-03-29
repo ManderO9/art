@@ -1,26 +1,30 @@
-﻿using System.Text;
+﻿using System.Net.Http.Json;
+using System.Security.AccessControl;
+using System.Text;
 using System.Text.Json;
 
 namespace Art.UI;
 
-public class ImagesService : IImagesService
+public partial class ImagesService : IImagesService
 {
     #region Private Members
 
     private readonly IHistoryService mHistoryService;
     private readonly ILikeService mLikeService;
     private readonly IDataAccessService mDataAccessService;
-    private const string mDataFilename = "data.json";
+    private readonly HttpClient mHttpClient;
+    private const string mDataFilename = "data/data.json";
 
     #endregion
 
     #region Constructor
 
-    public ImagesService(IHistoryService historyService, ILikeService likeService, IDataAccessService dataAccessService)
+    public ImagesService(IHistoryService historyService, ILikeService likeService, IDataAccessService dataAccessService, HttpClient httpClient)
     {
         mHistoryService = historyService;
         mLikeService = likeService;
         mDataAccessService = dataAccessService;
+        mHttpClient = httpClient;
     }
 
     #endregion
@@ -99,10 +103,7 @@ public class ImagesService : IImagesService
             await mDataAccessService.WriteFileAsync(image.FileName, image.FileContent!);
 
         // Read data file
-        var data = await mDataAccessService.ReadFileAsync(mDataFilename);
-
-        // Deserialize the data from json
-        var appData = JsonSerializer.Deserialize<AppData>(data)!;
+        var appData = await mDataAccessService.ReadFileAsync<AppData>(mDataFilename);
 
         // Add the list of uploaded images to it
         appData.Images.AddRange(images);
@@ -114,6 +115,14 @@ public class ImagesService : IImagesService
         await mDataAccessService.WriteFileAsync(mDataFilename, bytes);
     }
 
+    public string GetImageUrl(Image image)
+    {
+        //var response = await mHttpClient.GetFromJsonAsync<ImageData>(mDataAccessService.FilesUrl + image.FileName);
+        //var path = mDataAccessService.FilesUrl + image.FileName + "?alt=media&token=" + response?.DownloadTokens;
+
+        return mDataAccessService.FilesUrl+ "images/" + image.FileName + "?alt=media";
+    }
+
     #endregion
 
     #region Private Helpers
@@ -121,10 +130,7 @@ public class ImagesService : IImagesService
     private async Task<List<Image>> LoadImagesAsync()
     {
         // Read the data file
-        var data = await mDataAccessService.ReadFileAsync(mDataFilename);
-
-        // Deserialize the data from json
-        var appData = JsonSerializer.Deserialize<AppData>(data);
+        var appData = await mDataAccessService.ReadFileAsync<AppData>(mDataFilename);
 
         // Only show images that we want the users to see, meaning created date is older than the current time
         var list = appData!.Images.Where(i => i.CreateAt <= DateTimeOffset.UtcNow).ToList();

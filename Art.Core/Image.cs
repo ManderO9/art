@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Art.UI;
+namespace Art.Core;
 
 public class Image
 {
@@ -36,4 +36,10 @@ public class Image
     /// </summary>
     [JsonIgnore]
     public byte[]? FileContent { get; set; }
+
+    /// <summary>
+    /// File Path to use when we are upload the image
+    /// </summary>
+    [JsonIgnore]
+    public string FilePath { get; set; } = string.Empty;
 }
