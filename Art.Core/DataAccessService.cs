@@ -16,9 +16,6 @@ public class DataAccessService : IDataAccessService
 
     public async Task<TData> ReadFileAsync<TData>(string fileName)
     {
-        //var response = await mHttpClient.GetFromJsonAsync<ImageData>(FilesUrl + fileName);
-        //var path = FilesUrl + fileName + "?alt=media&token=" + response?.DownloadTokens;
-
         var path = FilesUrl + fileName + "?alt=media";
 
         return await mHttpClient.GetFromJsonAsync<TData>(path) ?? default!;
