@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-using System.Security.AccessControl;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 
 namespace Art.UI;
@@ -12,19 +10,17 @@ public partial class ImagesService : IImagesService
     private readonly IHistoryService mHistoryService;
     private readonly ILikeService mLikeService;
     private readonly IDataAccessService mDataAccessService;
-    private readonly HttpClient mHttpClient;
-    private const string mDataFilename = "data/data.json";
+    private const string mDataFilename = "data%2Fdata.json";
 
     #endregion
 
     #region Constructor
 
-    public ImagesService(IHistoryService historyService, ILikeService likeService, IDataAccessService dataAccessService, HttpClient httpClient)
+    public ImagesService(IHistoryService historyService, ILikeService likeService, IDataAccessService dataAccessService)
     {
         mHistoryService = historyService;
         mLikeService = likeService;
         mDataAccessService = dataAccessService;
-        mHttpClient = httpClient;
     }
 
     #endregion
@@ -116,12 +112,7 @@ public partial class ImagesService : IImagesService
     }
 
     public string GetImageUrl(Image image)
-    {
-        //var response = await mHttpClient.GetFromJsonAsync<ImageData>(mDataAccessService.FilesUrl + image.FileName);
-        //var path = mDataAccessService.FilesUrl + image.FileName + "?alt=media&token=" + response?.DownloadTokens;
-
-        return mDataAccessService.FilesUrl+ "images/" + image.FileName + "?alt=media";
-    }
+        => mDataAccessService.FilesUrl+ "images%2F" + image.FileName + "?alt=media";
 
     #endregion
 
