@@ -76,5 +76,5 @@ public class BogusImagesService : IImagesService
         return Task.CompletedTask;
     }
 
-    public Task<string> GetImageUrl(Image image) => throw new NotImplementedException();
+    public string GetImageUrl(Image image) => throw new NotImplementedException();
 }
