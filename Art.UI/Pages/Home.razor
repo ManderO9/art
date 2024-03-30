@@ -13,7 +13,7 @@
         @foreach(var image in mImages)
         {
             <div class="mb-3 pb-2 bg-dark">
-                <img class="displayed-image vw-100 mb-2"
+                        <img loading="lazy" class="displayed-image vw-100 mb-2"
                      data-id="@image.Id"
                      style="max-width:600px; min-height:500px;"
                      src="@mImageService.GetImageUrl(image)"
