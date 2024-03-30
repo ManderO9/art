@@ -16,7 +16,7 @@
                 <img class="displayed-image vw-100 mb-2"
                      data-id="@image.Id"
                      style="max-width:600px; min-height:500px;"
-                     src="@mImageService.GetImageUrl(image)" 
+                     src="@mImageService.GetImageUrl(image)"
                      @ondblclick="()=>LikeImage(image)" />
 
                 @if(image.IsLiked)
@@ -37,6 +37,13 @@
                 }
             </div>
         }
+
+        <div class="text-center pt-4 pb-3">
+            <button class="btn btn-light"
+                    @onclick="async () => mImages.AddRange(await mImageService.GetRandomImagesAsync(40))">
+                Load more
+            </button>
+        </div>
 
         <script>
             // Get the images to observe

@@ -44,6 +44,22 @@ public partial class ImagesService : IImagesService
         return list;
     }
 
+    public async Task<List<Image>> GetRandomImagesAsync(int count)
+    {
+        // Load images from server
+        var list = await LoadImagesAsync();
+
+        // Create output list
+        var output = new List<Image>();
+
+        // Add count amount of random images to the output list
+        for(int i = 0; i < count; i++)
+            output.Add(list[Random.Shared.Next() % list.Count]);
+
+        // Return the result
+        return output;
+    }
+
     public async Task<List<Image>> GetAllImagesAsync()
     {
         // Load images from server
@@ -112,7 +128,7 @@ public partial class ImagesService : IImagesService
     }
 
     public string GetImageUrl(Image image)
-        => mDataAccessService.FilesUrl+ "images%2F" + image.FileName + "?alt=media";
+        => mDataAccessService.FilesUrl + "images%2F" + image.FileName + "?alt=media";
 
     #endregion
 

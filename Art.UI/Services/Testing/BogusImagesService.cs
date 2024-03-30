@@ -77,4 +77,5 @@ public class BogusImagesService : IImagesService
     }
 
     public string GetImageUrl(Image image) => throw new NotImplementedException();
+    public Task<List<Image>> GetRandomImagesAsync(int count) => throw new NotImplementedException();
 }

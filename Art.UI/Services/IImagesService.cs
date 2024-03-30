@@ -3,6 +3,7 @@
 public interface IImagesService
 {
     Task<List<Image>> GetRecommendedImagesAsync();
+    Task<List<Image>> GetRandomImagesAsync(int count);
     Task<List<Image>> GetAllImagesAsync();
     Task<List<Image>> GetLikedImagesAsync();
     Task<List<Image>> GetImagesInHistoryAsync();
