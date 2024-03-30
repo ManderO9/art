@@ -5,7 +5,11 @@
 <PageTitle>Likes</PageTitle>
 
 <div class="m-auto pb-5" style="max-width:600px;">
-    @if(mImages is not null)
+    @if(mImages is null || mImages.Count == 0)
+    {
+        <div class="text-center"><span class="text-light">You haven't liked any images yet.</span></div>
+    }
+    else
         @foreach(var image in mImages)
         {
             <a href="@PageRoutes.ImageById(image.Id)" class="m-0 p-0">
