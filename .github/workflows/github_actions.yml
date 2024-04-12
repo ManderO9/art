@@ -22,7 +22,7 @@ jobs:
       run: dotnet workload install wasm-tools 
     
     - name: installing package PublishSPAforGitHubPages.Build 
-      run: dotnet add package PublishSPAforGitHubPages.Build 
+      run: dotnet add Art.UI/Art.UI.csproj package PublishSPAforGitHubPages.Build
       
     # publishes project to the release folder
     - name: Publish .Net Core Project
