@@ -18,12 +18,12 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: installing package PublishSPAforGitHubPages.Build 
-      run: dotnet add package PublishSPAforGitHubPages.Build 
-    
     - name: Install .NET WASM Build Tools
       run: dotnet workload install wasm-tools 
-        
+    
+    - name: installing package PublishSPAforGitHubPages.Build 
+      run: dotnet add package PublishSPAforGitHubPages.Build 
+      
     # publishes project to the release folder
     - name: Publish .Net Core Project
       run: dotnet publish ./Art.UI/Art.UI.csproj -c Release -o release --nologo -p:GHPages=true -p:CompressionEnabled=false
