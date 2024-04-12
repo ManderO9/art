@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 
 var settingsFilePath = "D:\\programming\\ai-art\\media\\settings.json";
@@ -204,4 +205,5 @@ public class Settings
     public DateTimeOffset StartDate { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset EndDate { get; set; } = DateTimeOffset.UtcNow;
 }
+
 
