@@ -7,7 +7,7 @@ public class DataAccessService : IDataAccessService
 {
     private readonly HttpClient mHttpClient;
 
-    public string FilesUrl { get => "https://firebasestorage.googleapis.com/v0/b/ai-art-f6bde.appspot.com/o/"; }
+    public string FilesUrl => "https://ManderO9.github.io/ai-art-data/";
 
     public DataAccessService(HttpClient httpClient)
     {
@@ -16,7 +16,7 @@ public class DataAccessService : IDataAccessService
 
     public async Task<TData> ReadFileAsync<TData>(string fileName)
     {
-        var path = FilesUrl + fileName + "?alt=media";
+        var path = FilesUrl + fileName;
 
         return await mHttpClient.GetFromJsonAsync<TData>(path) ?? default!;
 

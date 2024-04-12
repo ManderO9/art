@@ -128,7 +128,7 @@ public partial class ImagesService : IImagesService
     }
 
     public string GetImageUrl(Image image)
-        => mDataAccessService.FilesUrl + "images%2F" + image.FileName + "?alt=media";
+        => mDataAccessService.FilesUrl + "images%2F" + image.FileName;
 
     #endregion
 
