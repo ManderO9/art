@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 
+
 var settingsFilePath = "D:\\programming\\ai-art\\media\\settings.json";
 
 var options = new JsonSerializerOptions()
@@ -20,10 +21,7 @@ Log($"    Output folder: {settings.OutputFolder}");
 Log($"    Start date: {settings.StartDate}");
 Log($"    End date: {settings.EndDate}");
 
-
-
 UploadImages(settings);
-
 
 
 void UploadImages(Settings settings)
