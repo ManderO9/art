@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
-using static System.Net.Mime.MediaTypeNames;
 
 
 var settingsFilePath = "D:\\programming\\ai-art\\media\\settings.json";
@@ -18,7 +17,8 @@ var settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(settingsFil
 Log($"Loaded settings from path: {settingsFilePath}");
 Log($"    Data file path: {settings.DataFilePath}");
 Log($"    Input folder: {settings.InputFolder}");
-Log($"    Output folder: {settings.OutputFolder}");
+Log($"    Output Folder By Date: {settings.OutputFolder}");
+Log($"    Aggregate Output Folder: {settings.AggregateOutputFolder}");
 Log($"    Start date: {settings.StartDate}");
 Log($"    End date: {settings.EndDate}");
 
@@ -70,6 +70,7 @@ void UploadImages(Settings settings)
     var fileCount = (double)files.Count();
 
     Log($"Found {fileCount} images in input folder.");
+    Log($"--");
 
     Log($"Creating image objects...");
 
@@ -101,8 +102,21 @@ void UploadImages(Settings settings)
 
         Log($"Directory created: {outDirectory}");
     }
+    Log($"--");
 
-    Log($"Moving images into output directory...");
+    Log($"Copying images into aggregate output directory...");
+
+    // Copy all the files into the aggregate output directory 
+    foreach(var image in imagesToUpload)
+    {
+        // Copy the image to the directory
+        File.Copy(image.FilePath, settings.AggregateOutputFolder + image.FileName);
+    }
+
+    Log($"Finished copying {imagesToUpload.Count} images to aggregate output directory.");
+    Log($"--");
+
+    Log($"Moving images into output directory by date...");
 
     // Move all the files into the output directory 
     foreach(var image in imagesToUpload)
@@ -157,16 +171,11 @@ void UploadImages(Settings settings)
     Log($"    Total number of images: {appData.Images.Count}");
 
     Log($"To finish image upload do the following:");
-    Log($"- upload all the files in out directory to google storage.");
-    Log($"      out directory: {outDirectory}");
-    Log($"      google storage: https://console.firebase.google.com/u/4/project/ai-art-f6bde/storage/ai-art-f6bde.appspot.com/files/~2Fimages");
 
-    Log($"- upload data file to google storage.");
-    Log($"      data file: {settings.DataFilePath}");
-    Log($"      google storage: https://console.firebase.google.com/u/4/project/ai-art-f6bde/storage/ai-art-f6bde.appspot.com/files/~2Fdata");
-
-    Log($"- run the following command to make files downloadable:");
-    Log($"gsutil -m setmeta -h \"Content-Disposition: attachment\" gs://ai-art-f6bde.appspot.com/**");
+    Log($"- upload all the files in out directory to github pages.");
+    Log($"    cd {settings.AggregateOutputFolder}");
+    Log($"    git coa \"uploading files\"");
+    Log($"    git push");
 
     Log($"Program existing successfully.");
 }
@@ -199,6 +208,7 @@ public class Settings
 {
     public required string InputFolder { get; set; }
     public required string OutputFolder { get; set; }
+    public required string AggregateOutputFolder { get; set; }
     public required string DataFilePath { get; set; }
     public required long MaxAllowedFileSize { get; set; }
 
