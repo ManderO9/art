@@ -7,12 +7,12 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="m-auto bg-black pb-5" style="max-width:600px;">
+<div class="m-auto bg-dark pb-5" style="max-width:600px;">
     @if(mImages is not null)
     {
         @foreach(var image in mImages)
         {
-            <div class="mb-3 pb-2 bg-dark">
+            <div class="mb-3 pb-2 bg-dark shadow-lg">
                         <img loading="lazy" class="displayed-image vw-100 mb-2"
                      data-id="@image.Id"
                      style="max-width:600px; min-height:500px;"
